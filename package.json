@@ -1,0 +1,20 @@
+{
+  "name": "e-commerce",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "client:start": "pnpm -F client dev",
+    "server:start": "pnpm -F server run dev",
+    "start": "pnpm -r run dev",
+    "server:build": "pnpm -F server build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.5.1",
+  "devDependencies": {
+    "@types": "link:QueryString/@types"
+  }
+}
