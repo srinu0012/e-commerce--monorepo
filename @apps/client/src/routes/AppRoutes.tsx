@@ -4,7 +4,7 @@ import RequireAuthAdmin from "./protected-routes/AdminRoutes";
 import RequireAuthUser from "./protected-routes/UserRoute";
 import AdminPage from "../pages/admin-page/AdminPage";
 const HomePage = lazy(() => import("../pages/home/Home"));
-const LoginPage = lazy(() => import("../pages/login-page/LoginPage"));
+const LoginPage = lazy(() => import("../pages/register-page/RegisterPage"));
 const CartPage = lazy(() => import("../pages/cart-page/CartPage"));
 const CategoryPage = lazy(() => import("../pages/category-page/CategoryPage"));
 const ProductItemPage = lazy(
@@ -21,7 +21,7 @@ export default function AppRoutes() {
       <Suspense>
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/loginpage" element={<LoginPage />} />
+          <Route path="/registerpage" element={<LoginPage />} />
           <Route path="/cartpage" element={<CartPage />} />
           <Route path="/categorypage/:category" element={<CategoryPage />} />
           <Route path="/productpage/:productId" element={<ProductItemPage />} />

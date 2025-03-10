@@ -1,11 +1,22 @@
 import { Grid, Box, Typography } from "@mui/material";
-import CartItemCard from "../cart-item-card/CartItemCard";
-import { CartStore } from "../../stores/cartStore";
-
-
+import { useCallback, useEffect, useState } from "react";
+import { getOrdersByUserId } from "../../services/orderServices";
+import { UserAuthStore } from "../../stores/authStore";
+import OrdersCard from "../order-card/OrderCard";
 
 export default function UserOrders() {
-  const orderedProducts = CartStore((state) => state.orderedProducts);
+ const [orders,SetOrders]=useState([])
+ const token = UserAuthStore((state)=>state.token)
+
+ const fetchOrders = useCallback(async (token:string)=>{
+  const result:[] =await getOrdersByUserId(token)
+    SetOrders([...result])
+ },[token])
+
+ 
+  useEffect(()=>{
+    fetchOrders(token!);
+  },[token])
 
   return (
     <>
@@ -15,9 +26,9 @@ export default function UserOrders() {
             Orders
           </Typography>
         </Box>
-        <Grid container spacing={2}>
-          {orderedProducts.map((product) => {
-            return <CartItemCard product={product} />;
+        <Grid container spacing={4}>
+          {orders.map((order,ind) => {
+            return <OrdersCard order={order} key={ind} />;
           })}
         </Grid>
       </Box>

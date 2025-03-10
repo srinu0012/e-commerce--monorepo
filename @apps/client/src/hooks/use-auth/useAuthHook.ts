@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { loginUser } from "../../services/authService";
+
+
 export const useAuth = () => {
   const [error, setError] = useState<string>("");
   const login = async (email: string, password: string) => {
@@ -11,7 +13,6 @@ export const useAuth = () => {
       setError(err.data.message);
     }
   };
-
   return { login, error };
 };
 

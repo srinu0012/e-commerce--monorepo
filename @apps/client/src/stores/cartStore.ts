@@ -8,24 +8,10 @@ export const CartStore = create<CartStoreType>()(
       (set) => ({
         cartProducts: [],
         countProducts: {},
-        orderedProducts: [],
-        countOrderedProducts: {},
-        buyNow: () =>
-          set((state) => {
-            return {
-              cartProducts: [],
-              countProducts: {},
-              orderedProducts: [...state.orderedProducts, ...state.cartProducts],
-              countOrderedProducts: {
-                ...state.countOrderedProducts,
-                ...state.countOrderedProducts,
-              },
-            };
-          }),
         setProducts: (product) =>
-          set((state) => {
+          set((state:any) => {
             const Idexist = state.countProducts[product.id] || 0;
-            const ProductExist = state.cartProducts.includes(product)
+            const ProductExist = Idexist > 0
               ? [...state.cartProducts]
               : [...state.cartProducts, product];
             return {
@@ -34,9 +20,10 @@ export const CartStore = create<CartStoreType>()(
               countProducts: {
                 ...state.countProducts,
                 [product.id]: Idexist + 1,
-              },
+              }
             };
           }),
+          clearProducts:()=>set(()=>({cartProducts:[],countProducts:{}}))
       }),
       { name: "cart-product" }
     )

@@ -19,4 +19,6 @@ export interface ProductItemType {
   warranty_information: string;
   thumbnail_url: string;
   rating: number | undefined;
+  order_count?:number;
+  status?:string;
 }

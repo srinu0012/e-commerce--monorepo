@@ -1,10 +1,13 @@
 import { create } from "zustand";
-import MoreStoreType from "../types/moreStoreType";
+import productStoreType from "../types/productStoreType";
 
-export const MoreStore = create<MoreStoreType>()((set) => ({
+export const ProductStore = create<productStoreType>()((set) => ({
   Products: [],
-  viewMore: async (newproducts) =>
-    set((state: { Products: Record<string, any>[] }) => ({
+  isViewMoreAble:false,
+  SetProducts:(newproducts,isViewMoreAble) =>
+    set((state) => ({
       Products: [...state.Products, ...newproducts],
+      isViewMoreAble:isViewMoreAble
     })),
+  clearProducts:()=>set(()=>({Products:[]}))
 }));

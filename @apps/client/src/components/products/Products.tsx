@@ -4,24 +4,31 @@ import { limitFetchProducts } from "../../services/apiServices";
 import ViewMoreButton from "../buttons/viewMoreButton/ViewMoreButton";
 import { Grid } from "@mui/material";
 import { ActionStore } from "../../stores/actionsStore";
+import { ProductStore } from "../../stores/moreProductsStore";
+import { RangeFilterProducts } from "../../utils/rangeFilterFunction";
+
 
 export default function Products() {
   const range = ActionStore((state)=>state.sideBarRange)
-  const [Products,viewMore]=useState([])
-  const [currentPage, setCurrentPage] = useState<number>(1);
+  const Products = ProductStore((state)=>state.Products)
+  const SetProducts = ProductStore((state)=>state.SetProducts)
+  const clearProducts = ProductStore((state)=>state.clearProducts)
 
+  const FilterProducts = RangeFilterProducts(Products)
   useEffect(() => {
-    limitFetchProducts(currentPage, viewMore,range);
-  }, [currentPage]);
+    limitFetchProducts(0, SetProducts,range);
+    return clearProducts
+  }, []);
 
   const handleNextItems = useCallback(() => {
-    setCurrentPage(currentPage + 1);
-  }, [currentPage]);
+    limitFetchProducts(Products.length, SetProducts,range);
+  }, [Products.length]);
+  
 
   return (
     <>
       <Grid container spacing={2}>
-        {Products.map((ele: Record<string, any>, ind: number) => (
+        {FilterProducts.map((ele: Record<string, any>, ind: number) => (
           <ProductCard key={ind} product={ele} />
         ))}
       </Grid>

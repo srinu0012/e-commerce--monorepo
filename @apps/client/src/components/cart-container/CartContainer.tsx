@@ -7,8 +7,6 @@ import GoToProductsButton from "../buttons/go-to-products-button/GoToProductsBut
 export function CartContainer() {
   const cartProducts = CartStore((state) => state.cartProducts);
 
-  console.log(cartProducts,"<<<<cart container")
-
   return (
     <>
       <Box sx={{ padding: 2, textAlign: "center" }}>

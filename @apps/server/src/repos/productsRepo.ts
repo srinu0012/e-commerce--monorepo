@@ -1,5 +1,4 @@
 import { query } from "../utils/queryHelper.js";
-// import { ParsedQs } from '@types/qs';
 
 export const AllProducts = async (limit: string, skip: string, lowprice: number, highprice: number) => {
 

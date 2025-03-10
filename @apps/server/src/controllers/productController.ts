@@ -1,8 +1,5 @@
 import { Request, Response } from "express"
 import { AllProducts, AllProductsCount, AllCategories, GetProductsByCategory, GetProductByIdRepo } from "../repos/productsRepo.js"
-import { getReviewsByIdRepo } from "../repos/reviewsRepo.js";
-
-
 
 interface ProductQueryParams {
     limit: string;
@@ -20,7 +17,6 @@ export const GetAllProducts = async (req: Request<{}, {}, {}, ProductQueryParams
         const data = { products: result, total: total, skip: skip, limit: limit }
         res.status(200).json(data)
     } catch (error) {
-        console.log(error)
         res.status(500).json({ message: "internal server error" })
     }
 }
@@ -30,8 +26,6 @@ export const getProductById = async (req: Request, res: Response) => {
     const {id}=req.params;
     try {
         const Productdata = await GetProductByIdRepo(id);
-        const reviewsdata = await getReviewsByIdRepo(id);
-        Productdata["reviews"]=reviewsdata;
         res.send(Productdata)
     } catch (error) {
 

@@ -1,5 +1,4 @@
 import {
-  Box,
   Card,
   CardContent,
   CardMedia,
@@ -14,6 +13,8 @@ import { ProductItemType } from "../../types/productItemType";
 import AddToCartButton from "../buttons/add-to-cart-button/AddToCartButton";
 import { fetchProductItem } from "../../services/apiServices";
 import ReviewForm from "../review-form/Review-form";
+import ReviewContainer from "../review-container/ReviewContainer";
+
 
 export default function ProductItem() {
   const [product, setProduct] = useState<ProductItemType | null>(null);
@@ -31,7 +32,6 @@ export default function ProductItem() {
   return (
     <>
       <Grid container justifyContent="center" spacing={2} sx={{ marginTop: 5 }}>
-        {/* Product Image */}
         <Grid item xs={12} sm={6}>
           <Card sx={{ boxShadow: 3, borderRadius: 2 }}>
             <CardMedia
@@ -48,7 +48,6 @@ export default function ProductItem() {
           </Card>
         </Grid>
 
-        {/* Product Info */}
         <Grid item xs={12} sm={6}>
           <Card sx={{ boxShadow: 3, borderRadius: 2 }}>
             <CardContent>
@@ -97,40 +96,15 @@ export default function ProductItem() {
               <Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
                 <strong>Rating:</strong>
               </Typography>
-              <Rating name="read-only" value={product?.rating?Math.floor(product?.rating):0} readOnly />
-              <Typography variant="body2" color="textSecondary">
-                {product?.reviews.length} Reviews
-              </Typography>
+              <Rating name="read-only" value={product?.rating ? Math.floor(product?.rating) : 0} readOnly />
 
               <Divider sx={{ marginY: 2 }} />
-
               <AddToCartButton product={product!} />
             </CardContent>
           </Card>
         </Grid>
-
-        {/* Reviews Section */}
-        <Grid item xs={12} sx={{ marginTop: 5 }}>
-          <Typography variant="h6" sx={{ fontWeight: 600 }}>
-            Customer Reviews:
-          </Typography>
-          <Box sx={{ maxHeight: 400, overflowY: "auto", marginBottom: 3 }}>
-            {product?.reviews.map((review, index) => (
-              <Box key={index} sx={{ marginBottom: 2 }}>
-                <Typography variant="body1" sx={{ fontWeight: 500 }}>
-                  <strong>{review?.username}</strong> -{" "}
-                  <Rating value={review.rating} readOnly precision={0.1} />
-                </Typography>
-                <Typography variant="body2" sx={{ marginTop: 1 }}>
-                  {review.comment}
-                </Typography>
-              </Box>
-            ))}
-          </Box>
-
-          {/* Add Review Form */}
-          <ReviewForm product_id={productId!} />
-        </Grid>
+        <ReviewContainer product_id={productId!} />
+        <ReviewForm product_id={productId!} />
       </Grid>
     </>
   );

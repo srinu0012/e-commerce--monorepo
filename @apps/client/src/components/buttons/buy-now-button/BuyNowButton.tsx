@@ -1,31 +1,38 @@
 import { Box, Button } from "@mui/material";
 import { CartStore } from "../../../stores/cartStore";
 import { UserAuthStore } from "../../../stores/authStore";
-import { useCallback } from "react";
-import { usePageNavigation } from "../../../hooks/page-navigation-hook.ts/pageNavigation";
-import { globalStore } from "../../../stores/globalAdminStore";
+import { ActionStore } from "../../../stores/actionsStore";
+import { addOrders } from "../../../services/orderServices";
+
+
 
 export default function BuyNowButton() {
-  const GoToLogin = usePageNavigation("loginpage");
-  const orderedProducts = CartStore((state) => state.orderedProducts);
-  const buyNow = CartStore((state) => state.buyNow);
-  const user = UserAuthStore((state) => state.user);
-  const isAuthenticated = UserAuthStore((state) => state.isAuthenticated);
-  const setGlobalProducts = globalStore((state) => state.setGlobalProducts);
+  const cartProducts = CartStore((state)=>state.cartProducts);
+  const countProducts = CartStore((state)=>state.countProducts);
+  const clearProducts = CartStore((state)=>state.clearProducts)
+  const isAuthenticated = UserAuthStore((state)=>state.isAuthenticated)
+  const role = UserAuthStore((state)=>state.role)
+  const token =UserAuthStore((state)=>state.token)
+  const SetIsLoginFormOpen = ActionStore((state)=>state.SetIsLoginFormOpen)
 
-  const handleBuynow = useCallback((): void => {
-    if (!isAuthenticated) {
-      GoToLogin();
-    } else {
-      buyNow();
-      setGlobalProducts(user?.username, orderedProducts);
+
+  const handleBuyNow = async ()=>{
+    if(isAuthenticated && role=="user" && token){
+      const orderData = cartProducts.map((product) => ({
+        product_id: product.id,
+        count: countProducts[product.id], 
+      }))
+        await addOrders(orderData,token)
+        clearProducts()
+    }else{
+      SetIsLoginFormOpen()
     }
-  }, []);
-
+  }
+     
   return (
     <>
       <Box sx={{ display: "flex", justifyContent: "center" }}>
-        <Button variant="contained" onClick={handleBuynow}>
+        <Button variant="contained" onClick={handleBuyNow}>
           Buy Now
         </Button>
       </Box>

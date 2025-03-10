@@ -5,15 +5,13 @@ import HamburgerIconButton from "../buttons/hamburger-button/Hamburger";
 import HeaderNavigationButtons from "../header-navigation-buttons/HeaderNavigationButton";
 import HeaderProfileButton from "../buttons/header-profile-button/HeaderProfileButton";
 import HeaderPopup from "../profile-logout/ProfileLogoutButtons";
-import  HeaderLoginButton  from "../buttons/header-login-button/HeaderLoginButton";
+import HeaderLoginButton from "../buttons/header-login-button/HeaderLoginButton";
 import useMediaQueries from "../../themes/basic-theme/mediaQuires";
-import { usePageNavigation } from "../../hooks/page-navigation-hook.ts/pageNavigation";
 import { UserAuthStore } from "../../stores/authStore";
 import { useRef, useState } from "react";
 
 export default function NavBar() {
   const mobileScreen = useMediaQueries();
-  const GoToPage = usePageNavigation("loginpage");
   const isAuthenticated = UserAuthStore((state) => state.isAuthenticated);
   const [popup, setPopup] = useState<boolean>(false);
   const anchorEl = useRef(null);
@@ -48,7 +46,7 @@ export default function NavBar() {
                 />
               </>
             ) : (
-              <HeaderLoginButton linkto={GoToPage} />
+              <HeaderLoginButton/>
             )}
           </>
         )}

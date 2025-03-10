@@ -1,11 +1,12 @@
-import LoginForm from "../../components/auth-login-form/AuthLoginForm";
+
+import RegistrationForm from "../../components/auth-register-form/AuthRegisterForm";
 import Header from "../../components/header/Header";
 
 function LoginPage() {
   return (
     <>
       <Header />
-      <LoginForm />
+      <RegistrationForm />
     </>
   );
 }

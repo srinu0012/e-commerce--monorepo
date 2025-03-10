@@ -1,18 +1,21 @@
-import { Box, Button, TextField, Typography } from "@mui/material";
+import { Box, Button, IconButton, TextField, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { UserAuthStore } from "../../stores/authStore";
 import { useAuth } from "../../hooks/use-auth/useAuthHook";
 import { usePageNavigation } from "../../hooks/page-navigation-hook.ts/pageNavigation";
+import { Cancel } from "@mui/icons-material";
+import { ActionStore } from "../../stores/actionsStore";
 
 
-export default function LoginForm() {
+
+
+function LoginForm({HandleLoginPopup}:{HandleLoginPopup:()=>void}) {
   const { login, error } = useAuth()
-  const GoToHome = usePageNavigation("")
-
-
   const [Email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-
+  const GoToHome = usePageNavigation("")
+  const GotoRegister = usePageNavigation("registerpage")
+  const SetIsLoginFormOpen = ActionStore((state)=>state.SetIsLoginFormOpen)
   const userLogin = UserAuthStore((state) => state.userLogin);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -25,6 +28,11 @@ export default function LoginForm() {
     }
   };
 
+  const handleRegister = ()=>{
+    SetIsLoginFormOpen()
+    GotoRegister()
+  }
+
   return (
     <>
       <Box
@@ -35,13 +43,15 @@ export default function LoginForm() {
           padding: 3,
           border: "1px solid #ccc",
           borderRadius: 2,
+          background: "#fff"
         }}
       >
+        <IconButton color="error" children={<Cancel/>} onClick={HandleLoginPopup} />
         <Typography variant="h5">Login</Typography>
 
         <form onSubmit={handleSubmit}>
           <TextField
-            label="Email/number"
+            label="Email"
             variant="outlined"
             margin="normal"
             fullWidth
@@ -49,7 +59,6 @@ export default function LoginForm() {
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-
           <TextField
             label="Password"
             type="password"
@@ -71,7 +80,18 @@ export default function LoginForm() {
             Login
           </Button>
         </form>
+
+        <Typography>
+          Dont have account,
+          <Button variant="text"
+            onClick={handleRegister}>
+            Register
+          </Button>
+        </Typography>
       </Box>
     </>
   );
 }
+
+
+export default LoginForm;

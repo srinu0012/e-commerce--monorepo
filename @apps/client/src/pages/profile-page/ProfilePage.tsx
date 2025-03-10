@@ -1,8 +1,17 @@
+import { Box } from "@mui/material";
+import Header from "../../components/header/Header";
+import Sidebar from "../../components/sidebar/Sidebar";
 
-export default function ProfilePage() {
+function ProfilePage() {
   return (
     <>
-      <h1>Profile Page</h1>
+    <Header />
+    <Box sx={{ display: "flex" }}>
+        <Sidebar />
+        <h1>profiledata</h1>
+    </Box>
     </>
   );
 }
+
+export default ProfilePage;

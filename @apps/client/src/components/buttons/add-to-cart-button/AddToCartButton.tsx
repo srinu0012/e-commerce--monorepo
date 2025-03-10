@@ -5,8 +5,9 @@ import { CartStore } from "../../../stores/cartStore";
 
 function AddToCartButton({ product }: { product: Record<string, any> }) {
   const setProducts = CartStore((state) => state.setProducts);
-  console.log(product,"<<<<<<<addto cart button")
-
+  const countProducts = CartStore((state) => state.countProducts)
+  const isAddToCartDisable = countProducts[product?.id] >= product?.stock ?true:false;
+  
   return (
     <>
       <Button
@@ -16,6 +17,7 @@ function AddToCartButton({ product }: { product: Record<string, any> }) {
         onClick={() => {
           setProducts(product);
         }}
+        disabled={isAddToCartDisable}
       >
         Add To Cart
       </Button>

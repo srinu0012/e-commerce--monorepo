@@ -1,15 +1,27 @@
 import { Login } from "@mui/icons-material";
-import { Box, Button, Tooltip } from "@mui/material";
-import React from "react";
+import { Box, Button, Modal, Tooltip, Typography } from "@mui/material";
+import React, { useState } from "react";
+import { ActionStore } from "../../../stores/actionsStore";
+import LoginForm from "../../auth-login-form/AuthLoginForm";
+// import LoginFormfrom "../../auth-login-form/AuthLoginForm";
 
-function HeaderLoginButton({ linkto }: { linkto: () => void }) {
+
+function HeaderLoginButton() {
+  // const [isLoginOpen,SetIsLoginOpen]=useState<boolean>(false)
+  const SetIsLoginOpen = ActionStore((state)=>state.SetIsLoginFormOpen)
+  const isLoginOpen =ActionStore((state)=>state.isLoginFormOpen)
+
+const HandleLoginPopup= ()=>{
+  SetIsLoginOpen()
+}
+
   return (
     <>
       <Box>
         <Tooltip title="Login" arrow>
           <Button
             startIcon={<Login />}
-            onClick={linkto}
+            onClick={HandleLoginPopup}
             variant="contained"
             color="primary"
             sx={{
@@ -23,6 +35,14 @@ function HeaderLoginButton({ linkto }: { linkto: () => void }) {
           </Button>
         </Tooltip>
       </Box>
+      <Modal
+        open={isLoginOpen}
+        onClose={SetIsLoginOpen}>
+          <>
+          <LoginForm HandleLoginPopup={SetIsLoginOpen}/>
+          </>
+
+      </Modal>
     </>
   );
 }

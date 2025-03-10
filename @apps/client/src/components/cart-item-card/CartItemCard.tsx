@@ -4,7 +4,7 @@ import React from "react";
 
  function CartItemCard({ product }: { product: Record<string, any> }) {
   const countProducts = CartStore((state) => state.countProducts);
-  console.log(product)
+  // console.log(product)
   return (
     <>
       <Grid item xs={12} sm={4} md={6} lg={3} key={product.id}>
@@ -24,11 +24,10 @@ import React from "react";
             image={product.thumbnail_url}
             title={product.title}
           />
-
           <CardContent>
             <Typography variant="h6">{product.title}</Typography>
             <Typography variant="body2" color="textSecondary">
-              ${product.price}
+              ${product.price * countProducts[product.id]}
             </Typography>
           </CardContent>
           <Typography variant="h5" color="error">
