@@ -1,3 +1,4 @@
+import { AxiosError } from "axios";
 import api from "./api";
 
 type ordersType = {
@@ -13,8 +14,12 @@ export const addOrders = async (orders: ordersType[], token: string) => {
       { headers: { authorization: `Bearer ${token}` } }
     );
     return response.data;
-  } catch (error: any) {
-    throw new Error(error.message);
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      throw new Error(error.message);
+    } else {
+      throw new Error("An unknown error occurred");
+    }
   }
 };
 
@@ -24,8 +29,12 @@ export const getOrdersByUserId = async (token: string) => {
       headers: { authorization: `Bearer ${token}` },
     });
     return response.data;
-  } catch (error: any) {
-    throw new Error(error.message);
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      throw new Error(error.message);
+    } else {
+      throw new Error("An unknown error occurred");
+    }
   }
 };
 
@@ -36,8 +45,12 @@ export const getAllOrdersForAdminService = async (token:string)=>{
       headers: { authorization: `Bearer ${token}` },
     });
     return response.data
-  } catch (error:any) {
-    throw new Error(error.message)
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      throw new Error(error.message);
+    } else {
+      throw new Error("An unknown error occurred");
+    }
   }
 }
 
@@ -52,10 +65,12 @@ export const changeOrderStatusService =async (status:string,user_user_id:number,
       headers: { authorization: `Bearer ${token}` },
     })
     return response.data
-  } catch (error:any) {
-    console.log(error);
-    
-    throw new Error(error.message)
+  } catch (error) {    
+    if (error instanceof AxiosError) {
+      throw new Error(error.message);
+    } else {
+      throw new Error("An unknown error occurred");
+    }
   }
 }
 

@@ -9,7 +9,7 @@ export const CartStore = create<CartStoreType>()(
         cartProducts: [],
         countProducts: {},
         setProducts: (product) =>
-          set((state:any) => {
+          set((state) => {
             const Idexist = state.countProducts[product.id] || 0;
             const ProductExist = Idexist > 0
               ? [...state.cartProducts]

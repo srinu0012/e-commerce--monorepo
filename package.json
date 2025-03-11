@@ -10,11 +10,7 @@
     "start": "pnpm -r run dev",
     "server:build": "pnpm -F server build"
   },
-  "keywords": [],
-  "author": "",
+  "author": "srinu",
   "license": "ISC",
-  "packageManager": "pnpm@10.5.1",
-  "devDependencies": {
-    "@types": "link:QueryString/@types"
-  }
+  "packageManager": "pnpm@10.5.1"
 }

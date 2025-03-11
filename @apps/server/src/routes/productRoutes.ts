@@ -15,3 +15,4 @@ router.get("/:id",getProductById)
 router.get("/review/:id",getReviewsByProductId)
 
 export default router;
+

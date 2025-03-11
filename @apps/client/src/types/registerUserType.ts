@@ -6,3 +6,11 @@ export type registerFormDataType = {
     confirmPassword: string,
     address:string
   }
+
+
+export type profileInfoType = {
+  username?: string;
+  email?: string;
+  mobileNumber?: string;
+  address?: string;
+};  

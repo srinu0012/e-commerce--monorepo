@@ -29,6 +29,3 @@ pool.connect().then(() => {
 }).catch((err) => {
     console.log(err)
 })
-
-
-

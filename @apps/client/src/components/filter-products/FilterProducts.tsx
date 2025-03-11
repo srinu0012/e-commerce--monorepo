@@ -30,7 +30,7 @@ function FilterProducts() {
   return (
     <>
       <Grid container spacing={2} sx={{ paddingTop: 5 }}>
-        {filterProducts.map((ele: Record<string, any>) => (
+        {filterProducts.map((ele: ProductItemType) => (
           <ProductCard key={ele.id} product={ele} />
         ))}
       </Grid>
