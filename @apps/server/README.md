@@ -79,5 +79,8 @@ Features Overview
 
 
 ----------database files
+TODOS
 
+
+"bcrypt": "^5.1.1",//TODO
 

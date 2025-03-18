@@ -1,5 +1,5 @@
 packages:
   - ./@apps/**
-onlyBuiltDependencies:
+onlyBuiltDependencies: #TODO 
   - bcrypt
   - esbuild

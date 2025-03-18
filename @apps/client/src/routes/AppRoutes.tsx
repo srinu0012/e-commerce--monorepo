@@ -17,42 +17,79 @@ const UserOrdersPage = lazy(
 
 export default function AppRoutes() {
   return (
-    <>
-      <Suspense>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/registerpage" element={<LoginPage />} />
-          <Route path="/cartpage" element={<CartPage />} />
-          <Route path="/categorypage/:category" element={<CategoryPage />} />
-          <Route path="/productpage/:productId" element={<ProductItemPage />} />
-          <Route
-            path="/profilepage"
-            element={
-              <RequireAuthUser>
-                <ProfilePage />
-              </RequireAuthUser>
-            }
-          />
+    <Routes>
+      <Route
+        path="/"
+        element={
+          <Suspense>
+            <HomePage />
+          </Suspense>
+        }
+      />
+      <Route
+        path="/registerpage"
+        element={
+          <Suspense>
+            <LoginPage />
+          </Suspense>
+        }
+      />
+      <Route
+        path="/cartpage"
+        element={
+          <Suspense>
+            <CartPage />
+          </Suspense>
+        }
+      />
+      <Route
+        path="/categorypage/:category"
+        element={
+          <Suspense>
+            <CategoryPage />
+          </Suspense>
+        }
+      />
+      <Route
+        path="/productpage/:productId"
+        element={
+          <Suspense>
+            <ProductItemPage />
+          </Suspense>
+        }
+      />
+      <Route
+        path="/profilepage"
+        element={
+          <Suspense>
+            <RequireAuthUser>
+              <ProfilePage />
+            </RequireAuthUser>
+          </Suspense>
+        }
+      />
 
-          <Route
-            path="/admindashbord"
-            element={
-              <RequireAuthAdmin>
-                <AdminPage />
-              </RequireAuthAdmin>
-            }
-          />
+      <Route
+        path="/admindashbord"
+        element={
+          <Suspense>
+            <RequireAuthAdmin>
+              <AdminPage />
+            </RequireAuthAdmin>
+          </Suspense>
+        }
+      />
 
-          <Route
-            path="/orders"
-            element={
-              <RequireAuthUser>
-                <UserOrdersPage />
-              </RequireAuthUser>
-            }
-          />
-        </Routes>
-      </Suspense>
-    </>
+      <Route
+        path="/orders"
+        element={
+          <Suspense>
+            <RequireAuthUser>
+              <UserOrdersPage />
+            </RequireAuthUser>
+          </Suspense>
+        }
+      />
+    </Routes>
   );
 }

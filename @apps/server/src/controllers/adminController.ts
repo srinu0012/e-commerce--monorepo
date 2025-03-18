@@ -1,6 +1,8 @@
 import { Request, Response } from "express";
-import {ChangeOrderStatusService,getAallOrdersService} from "../services/orderService.js";
-
+import {
+  changeOrderStatusService,
+  getAallOrdersService,
+} from "../services/orderService.js";
 
 export const getAallOrders = async (req: Request, res: Response) => {
   try {
@@ -13,8 +15,13 @@ export const getAallOrders = async (req: Request, res: Response) => {
 
 export const changeOrderStatus = async (req: Request, res: Response) => {
   const { status, user_user_id, product_id } = req.body;
+  // throw new Error("something went wrong");
   try {
-    const result = await ChangeOrderStatusService(status,product_id,user_user_id);
+    const result = await changeOrderStatusService(
+      status,
+      product_id,
+      user_user_id
+    );
     res.status(result.status).json(result.data);
   } catch (error: any) {
     res.send(500).json({ message: error.message });
